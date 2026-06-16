@@ -1,11 +1,18 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import './CSS/Checkout.css'
 import { ShopContext } from '../Context/ShopContext'
 import { useNavigate } from 'react-router-dom'
 
 const Checkout = () => {
-  const { getTotalCartAmount, setCartItems } = useContext(ShopContext);
+  const { getTotalCartAmount, clearCart, cartItems, all_product } = useContext(ShopContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!localStorage.getItem('auth-token')) {
+      alert("Please login to proceed to checkout.");
+      navigate('/login');
+    }
+  }, [navigate]);
 
   const [form, setForm] = useState({
     name: '',
@@ -17,6 +24,7 @@ const Checkout = () => {
 
   const [errors, setErrors] = useState({});
   const [placed, setPlaced] = useState(false);
+  const [orderAmount, setOrderAmount] = useState(0);
 
   const changeHandler = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -33,12 +41,52 @@ const Checkout = () => {
     return errs;
   }
 
-  const placeOrder = () => {
+  const placeOrder = async () => {
     const errs = validate();
     if (Object.keys(errs).length > 0) {
       setErrors(errs);
       return;
     }
+
+    const total = getTotalCartAmount();
+
+    // Build ordered items list
+    const orderedItems = [];
+    all_product.forEach((product) => {
+      if (cartItems[product.id] > 0) {
+        orderedItems.push({
+          productId: product.id,
+          name: product.name,
+          image: product.image,
+          price: product.new_price,
+          quantity: cartItems[product.id],
+        });
+      }
+    });
+
+    // Save order to backend
+    if (localStorage.getItem('auth-token')) {
+      await fetch('http://localhost:4000/placeorder', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'auth-token': localStorage.getItem('auth-token'),
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          customerName: form.name,
+          phone: form.phone,
+          address: form.address,
+          city: form.city,
+          paymentMethod: form.payment,
+          items: orderedItems,
+          totalAmount: total,
+        }),
+      }).catch((err) => console.log(err));
+    }
+
+    setOrderAmount(total);
+    clearCart();
     setPlaced(true);
   }
 
@@ -48,7 +96,7 @@ const Checkout = () => {
         <div className="checkout-success-box">
           <div className="checkout-tick">✓</div>
           <h1>Order Placed!</h1>
-          <p>Thank you, <strong>{form.name}</strong>! Your order of <strong>Rs.{getTotalCartAmount()}</strong> has been placed successfully.</p>
+          <p>Thank you, <strong>{form.name}</strong>! Your order of <strong>Rs.{orderAmount}</strong> has been placed successfully.</p>
           <p className="checkout-delivery-info">📦 Estimated delivery to <strong>{form.city}</strong> in 3-5 business days.</p>
           <p className="checkout-payment-info">💳 Payment: <strong>{form.payment === 'cod' ? 'Cash on Delivery' : form.payment === 'upi' ? 'UPI Payment' : 'Credit / Debit Card'}</strong></p>
           <button onClick={() => { navigate('/') }} className="checkout-home-btn">Continue Shopping</button>

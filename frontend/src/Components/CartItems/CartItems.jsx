@@ -57,6 +57,9 @@ const CartItems = () => {
             <button onClick={() => {
               if (getTotalCartAmount() === 0) {
                 alert("Your cart is empty! Add some items first.");
+              } else if (!localStorage.getItem('auth-token')) {
+                alert("Please login to proceed to checkout.");
+                navigate('/login');
               } else {
                 navigate('/checkout');
               }
