@@ -1,0 +1,56 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  height: 80px;
+  border-bottom: 3px solid #f6f6f6;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-logo img {
+  width: 45px;
+  height: 45px;
+}
+
+.nav-title h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #171717;
+  line-height: 1.1;
+  letter-spacing: 0.05em;
+}
+
+.nav-title p {
+  font-size: 12px;
+  color: #ff4141;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.nav-profile {
+  cursor: pointer;
+}
+
+.profile-icon {
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.profile-icon:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 500px) {
+  .navbar {
+    padding: 15px 20px;
+  }
+}

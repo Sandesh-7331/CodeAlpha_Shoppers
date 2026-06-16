@@ -68,6 +68,12 @@
     border-radius: 3px;
     cursor: pointer;
 }
+.productdisplay-right-sizes div.active {
+    border-color: #ff4141;
+    background: #ffebeb;
+    color: #ff4141;
+    font-weight: 600;
+}
 .productdisplay-right button{
     padding: 20px 40px;
     width: 200px;

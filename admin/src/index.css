@@ -1,0 +1,15 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif, system-ui;
+  background: #f6f6f6;
+  color: #333;
+}
+
+input, button, select, textarea {
+  font-family: inherit;
+}

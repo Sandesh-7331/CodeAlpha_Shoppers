@@ -61,6 +61,38 @@
     font-size: 15px;
     font-weight: 500;
 }
+.loginsignup-admin {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 25px;
+    padding: 15px 20px;
+    background: #f7f7f7;
+    border-radius: 6px;
+    border: 1px dashed #c9c9c9;
+}
+.loginsignup-admin p {
+    color: #5c5c5c;
+    font-size: 15px;
+    font-weight: 500;
+}
+.admin-btn {
+    width: auto !important;
+    height: auto !important;
+    padding: 10px 20px !important;
+    margin-top: 0 !important;
+    font-size: 14px !important;
+    background: #171717 !important;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    border: none;
+    font-weight: 600;
+    transition: background 0.2s ease;
+}
+.admin-btn:hover {
+    background: #333 !important;
+}
 @media(max-width: 600px){
     .loginsignup-container h1{
         font-size: 22px;
