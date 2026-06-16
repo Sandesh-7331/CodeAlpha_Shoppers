@@ -11,18 +11,6 @@
 
 ---
 
-## 📋 Table of Contents
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Project Structure](#project-structure)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Key Components](#key-components)
-- [Learning Outcomes](#learning-outcomes)
-- [Contact](#contact)
-
----
-
 ## ✨ Features
 
 ### Customer Features
